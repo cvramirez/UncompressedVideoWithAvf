@@ -1,9 +1,11 @@
 #import <AVFoundation/AVFoundation.h>
-#import <OcLib/OcLib.h>
+#import <OcLib/NSObject+OcErrorUtilsHelper.h>
+#import <OcLib/OcResultSet.h>
+#import <CoreMedia/CoreMedia.h>
+#import <OcLib/OcSleepUtils.h>
 #import "STMovieDataReader.h"
 #import "STAVAssetHelper.h"
 #import "AVFoundationUtils.h"
-OcLogDef(LOG_LEVEL_VERBOSE);
 
 
 @interface STMovieDataReader () {
@@ -12,11 +14,11 @@ OcLogDef(LOG_LEVEL_VERBOSE);
 @property (nonatomic, readwrite, strong) AVAsset *asset;
 @property (nonatomic, readwrite, strong) AVAssetReader *assetReader;
 @property (nonatomic, readwrite, strong) AVAssetReaderOutput *assetReaderOutput;
-@property (nonatomic, readwrite, assign) NSSize videoDimensions;
 @property (nonatomic, readwrite, assign) BOOL hasBeenStartedBefore;
-@property (nonatomic, readwrite, assign) size_t numBitsPerPixel;
 @end
 
+
+OcLogDef(LOG_LEVEL_VERBOSE);
 
 @implementation STMovieDataReader
 
@@ -25,7 +27,7 @@ OcLogDef(LOG_LEVEL_VERBOSE);
 }
 
 + (instancetype)newWithUrl:(NSURL *)movieUrl decompressionSettings:(NSDictionary *)decompressionSettings resultSet:(OcResultSet *)resultSet {
-    return [[self alloc] initWithUrl:movieUrl decompressionSettings:decompressionSettings resultSet:resultSet];
+    return [[[self class] alloc] initWithUrl:movieUrl decompressionSettings:decompressionSettings resultSet:resultSet];
 }
 
 - (instancetype)initWithUrl:(NSURL *)movieUrl decompressionSettings:(NSDictionary *)decompressionSettings resultSet:(OcResultSet *)resultSet  {
@@ -37,10 +39,12 @@ OcLogDef(LOG_LEVEL_VERBOSE);
         if (isSuccess) isSuccess = [self createAssetReader:resultSet];
         if (isSuccess) isSuccess = [self setUpAssetReaderOutputForFirstVideoTrackWithDecompressionSettings:decompressionSettings
                                                                                                  resultSet:resultSet];
-        if (isSuccess) isSuccess = [self readFirstSampleBufferToGetPropertiesThenCacheItForConsumersOfThisObject:resultSet];
+        if (isSuccess) isSuccess = [self readFirstSampleBufferToGetPropertiesThenCacheItForTheFirstFrameRequest:resultSet];
         if (!isSuccess) {
             self = nil;
         }
+        OcLogExitMethodWithSuccessBool(isSuccess);
+
     }
     return self;
 }
@@ -55,7 +59,7 @@ OcLogDef(LOG_LEVEL_VERBOSE);
     NSDictionary *decompressionSettings = nil;
 
     //
-    // BUT(!!), even so, it seems that 'nil' is working best for now, so we'll let that be the default
+    // BUT(!!), even so, it seems that 'nil' is working best for now, so we'll let be the default
     //
 //            decompressionSettings = @{(id)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32ARGB),
 //                    (id)kCVPixelBufferIOSurfacePropertiesKey : [NSDictionary dictionary] /*,
@@ -91,7 +95,7 @@ OcLogDef(LOG_LEVEL_VERBOSE);
 
     AVAssetReaderOutput *assetReaderOutput;
     AVAssetTrack *firstVideoTrack;
-    CGSize trackDimensions;
+    CMVideoDimensions trackDimensions;
     BOOL isSuccess = [self getVideoTrack:&firstVideoTrack atIndex:0];
     if (isSuccess) isSuccess = [self addOutputToReader:self.assetReader forVideoTrack:firstVideoTrack
                              withDecompressionSettings:decompressionSettings
@@ -99,9 +103,9 @@ OcLogDef(LOG_LEVEL_VERBOSE);
     if (isSuccess) {
         [self getTrackDimensions:&trackDimensions fromVideoTrack:firstVideoTrack];
         self.assetReaderOutput = assetReaderOutput;
-        self.videoDimensions = trackDimensions;
+        _videoDimensions = trackDimensions;
 
-        NSLog(@"STMovieDataReader prepared to read video track: width=%f, height=%f", trackDimensions.width, trackDimensions.height);
+        OcLogDebug(@"STMovieDataReader found first video track and is ready to read: width=%d, height=%d", trackDimensions.width, trackDimensions.height);
     }
 
     if (!isSuccess) {
@@ -114,6 +118,7 @@ OcLogDef(LOG_LEVEL_VERBOSE);
 - (BOOL)getVideoTrack:(AVAssetTrack **)trackPtr atIndex:(uint)trackIndex  {
 
     NSArray *videoTracks = [self.asset tracksWithMediaType:AVMediaTypeVideo];
+    OcLogDebug(@"videoTracks.count = %d", videoTracks.count);
     BOOL isSuccess = (videoTracks !=nil  &&  videoTracks.count > 0  &&  videoTracks.count > trackIndex);
     if (isSuccess) {
         *trackPtr = videoTracks[trackIndex];
@@ -140,15 +145,24 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
     return isSuccess;
 }
 
-- (void)getTrackDimensions:(CGSize *)trackDimensionsPtr fromVideoTrack:(AVAssetTrack *)videoTrack  {
+- (void)getTrackDimensions:(CMVideoDimensions *)trackDimensionsPtr fromVideoTrack:(AVAssetTrack *)videoTrack  {
 
     CMFormatDescriptionRef formatDescription;
     BOOL isSuccess = [self getFormatDescription:&formatDescription fromVideoTrack:videoTrack];
     if (isSuccess) {
-        *trackDimensionsPtr = CMVideoFormatDescriptionGetPresentationDimensions(formatDescription, false, false);
-    }
+
+        CFDictionaryRef pixelAspectRatioFromCMFormatDescription = CMFormatDescriptionGetExtension(formatDescription, kCMFormatDescriptionExtension_PixelAspectRatio);
+
+        // was *trackDimensionsPtr = CMVideoFormatDescriptionGetPresentationDimensions(formatDescription, false, false);
+        *trackDimensionsPtr = CMVideoFormatDescriptionGetDimensions(formatDescription);
+        OcLogDebug(@"Got dimensions with CMVideoFormatDescriptionGetDimensions(): %d, %d (w,h).",
+                trackDimensionsPtr->width, trackDimensionsPtr->height);    }
     else {
-        *trackDimensionsPtr = [videoTrack naturalSize];
+        CGSize naturalSize = [videoTrack naturalSize];
+        trackDimensionsPtr->width  = (int32_t)naturalSize.width;
+        trackDimensionsPtr->height = (int32_t)naturalSize.height;
+        OcLogWarn(@"Couldn't get dimensions with CMVideoFormatDescriptionGetDimensions(), using "
+                "videoTrack.naturalSize instead. %d, %d (w,h).", naturalSize.width, naturalSize.height);
     }
 
 
@@ -168,31 +182,49 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
     return (isSuccessAssumedIfWeCanGrabFirstObject);
 }
 
-- (BOOL)readFirstSampleBufferToGetPropertiesThenCacheItForConsumersOfThisObject:(OcResultSet *)resultSet {
+- (BOOL)readFirstSampleBufferToGetPropertiesThenCacheItForTheFirstFrameRequest:(OcResultSet *)resultSet {
 
-    BOOL isSuccess = [self copyNextSampleBuffer:&_cachedFirstSampleBuffer resultSet:resultSet];
-    if (isSuccess) {
-        size_t totSampleSize = CMSampleBufferGetTotalSampleSize(_cachedFirstSampleBuffer);
-        self.numBitsPerPixel = (totSampleSize / self.numPixelsPerFrame) * 8;
-        OcLogDebug(@"totSampleSize = %d", totSampleSize);
-        OcLogDebug(@"numPixelsPerFrame = %d", self.numPixelsPerFrame);
-        OcLogDebug(@"numBitsPerPixel = %d", self.numBitsPerPixel);
+    int kMaxTimesToTryToReadTheFirstFrameBeforeGivingUp = 16;
+    int numTriesToRead = 0;
+    BOOL isSuccess = NO;
+
+    while (!isSuccess  &&  numTriesToRead<kMaxTimesToTryToReadTheFirstFrameBeforeGivingUp) {
+        numTriesToRead++;
+        OcLogVerbose(@"Attempt #%d to read first frame:", numTriesToRead);
+        isSuccess = [self copyNextSampleBuffer:&_cachedFirstSampleBuffer resultSet:resultSet];
+        if (isSuccess) isSuccess = [self hasValidCMSampleBufferContainingSamples:_cachedFirstSampleBuffer];
+        if (isSuccess) {
+            uint totSampleSize = (uint)CMSampleBufferGetTotalSampleSize(_cachedFirstSampleBuffer);
+            _numBitsPerPixel = (totSampleSize / self.numPixelsPerFrame) * 8;
+            OcLogDebug(@"totSampleSize = %d", totSampleSize);
+            OcLogDebug(@"numPixelsPerFrame = %d", self.numPixelsPerFrame);
+            OcLogDebug(@"numBitsPerPixel = %d", self.numBitsPerPixel);
 
 
-        CMTime duration = CMSampleBufferGetDuration(_cachedFirstSampleBuffer);
-        CMTimeValue frameDuration = duration.value;
-        CMTimeValue movieDuration = self.duration.value;
-        _numFrames = (uint32)((movieDuration + frameDuration - 1)/ frameDuration);
-        OcLogDebug(@"Calculated numFrames = %d", self.numFrames);
+            CMTime duration = CMSampleBufferGetDuration(_cachedFirstSampleBuffer);
+            CMTimeValue frameDuration = duration.value;
+            CMTimeValue movieDuration = self.duration.value;
+            _numFrames = (uint32)((movieDuration + frameDuration - 1)/ frameDuration);
+            OcLogDebug(@"Calculated numFrames = %d", self.numFrames);
+        }
+        else {
+            _cachedFirstSampleBuffer = NULL;
+        }
     }
-    else {
+
+    if (!isSuccess) {
         [resultSet.codeList addErrorWithCode:kOcErr_CantReadFileError format:@"Cannot read first sample buffer."];
     }
+    OcLogExitMethodWithSuccessBool(isSuccess);
     return isSuccess;
 }
 
-- (size_t)numPixelsPerFrame  {
-    return (size_t)(self.videoDimensions.height * self.videoDimensions.width);
+
+
+#pragma mark ---  Properties  ---
+
+- (uint)numPixelsPerFrame  {
+    return (uint)(self.videoDimensions.height * self.videoDimensions.width);
 }
 
 - (CMTime)duration {
@@ -213,12 +245,20 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
 
 
 
+#pragma mark ---  Reading Buffers  ---
+
 - (BOOL)copyNextSampleBuffer:(CMSampleBufferRef *)sampleBufferPtr resultSet:(OcResultSet *)resultSet  {
 
+    int kMaxTimesToTryToReadTheFirstFrameBeforeGivingUp = 16;
+    int numTriesToRead = 0;
+
     BOOL isSuccess = [self copyNextSampleBufferInternal:sampleBufferPtr resultSet:resultSet];
-    while (!isSuccess  &&  self.isAbleToAttemptToRead) {
+    while (!isSuccess  &&  self.isAbleToAttemptToRead  &&  numTriesToRead<kMaxTimesToTryToReadTheFirstFrameBeforeGivingUp) {
         [self maybeWeShouldSleepForABitBeforeTryingToReadAgain];
         isSuccess = [self copyNextSampleBufferInternal:sampleBufferPtr resultSet:resultSet];
+        numTriesToRead+=2;
+        OcLogWarn(@"Initial attempt to read sample failed. Looping now. Attempt #%d, isSuccess=%d",
+                numTriesToRead, isSuccess);
     }
     return isSuccess;
 }
@@ -233,25 +273,26 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
 //            [data wrapCMBuffer:sampleBuffer withPresentationTime:presentationTime];
 //            CFRelease(sampleBuffer);
 
-
+    OcLogEnteredMethod();
     BOOL isSuccess = [self ensureAssetReaderIsReadingAndOnlyStartedOnce:resultSet];
     if (isSuccess)
     {
         if (self.hasCachedFirstFrame) {
+            OcLogVerbose(@"Attemp to get cachedFirstFrame");
             isSuccess = [self getAndClearCachedFirstSampleBuffer:sampleBufferPtr resultSet:resultSet];
         }
         else {
+            OcLogVerbose(@"Attemp to copyNextSampleBuffer into buffer (%ld)(base addy %ld) from assetReaderOutput (%ld)", *sampleBufferPtr, sampleBufferPtr, self.assetReaderOutput);
             *sampleBufferPtr = [self.assetReaderOutput copyNextSampleBuffer];
+            OcLogVerbose(@"*sampleBufferPtr=%ld", *sampleBufferPtr);
             isSuccess = [self hasValidCMSampleBufferContainingSamples:*sampleBufferPtr];
 
             if (!isSuccess)
             {
-                // release invalid frame
                 if (*sampleBufferPtr != NULL) {
-                    CFRelease(_cachedFirstSampleBuffer);
-                    _cachedFirstSampleBuffer = NULL;
+                    CFRelease(*sampleBufferPtr);
+                    *sampleBufferPtr = NULL;
                 }
-
 
                 if (self.status == AVAssetReaderStatusReading) {
                     OcLogDebug(@"Got a CMSampleBuffer from reader output, but it had no samples. Status is "
@@ -270,6 +311,7 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
             }
         }
     }
+    OcLogExitMethodWithSuccessBool(isSuccess);
     return isSuccess;
 }
 
@@ -294,26 +336,30 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
 
 - (BOOL)getAndClearCachedFirstSampleBuffer:(CMSampleBufferRef *)sampleBufferPtr resultSet:(OcResultSet *)resultSet  {
 
-    if (!self.hasCachedFirstFrame) {
+    BOOL isSuccess = self.hasCachedFirstFrame;
+    if (!isSuccess) {
         [resultSet.codeList addErrorWithCode:kOcErr_internal
                                       format:@"Attempted to get 'cached' first sample buffer, but there was none..."];
-        return NO;
     }
     else {
         *sampleBufferPtr = _cachedFirstSampleBuffer;
         _cachedFirstSampleBuffer = nil;
-        return YES;
     }
+    OcLogExitMethodWithSuccessBool(isSuccess);
+    return isSuccess;
 }
 
 
 - (void)maybeWeShouldSleepForABitBeforeTryingToReadAgain {
+    millisecondSleep(50);
     OcLogVerbose(@"--- -- currently doesn nothing -- ---");
 }
 
 
 - (BOOL)hasValidCMSampleBufferContainingSamples:(CMSampleBufferRef)sampleBuffer  {
-    return ((CMSampleBufferIsValid(sampleBuffer))  &&  (CMSampleBufferGetNumSamples(sampleBuffer) > 0));
+    BOOL isSuccess = ((CMSampleBufferIsValid(sampleBuffer))  &&  (CMSampleBufferGetNumSamples(sampleBuffer) > 0));
+    OcLogExitMethodWithSuccessBool(isSuccess);
+    return isSuccess;
 }
 
 
@@ -323,32 +369,24 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
         self.assetReader.timeRange = CMTimeRangeMake(kCMTimeZero, self.asset.duration);
         [self.assetReader startReading];
         self.hasBeenStartedBefore = YES;
+        OcLogDebug(@"Started reading with range: %lld, %lld", self.assetReader.timeRange.start.value,
+                self.assetReader.timeRange.duration.value);
     }
 
     if (!self.isReading  &&  !self.hasBeenStartedBefore) {
-        NSString *errMsg = [NSString stringWithFormat:@"[assetReader startReading] failed!  assetReader.status = %li.", self.assetReader.status];
+        NSString *errMsg = [NSString stringWithFormat:@"[assetReader startReading] failed!  assetReader.status = %li.",
+                                                      self.assetReader.status];
         [resultSet.codeList addErrorWithCode:kOcErr_internal format:errMsg];
         OcLogError(@"%@", errMsg);
     }
     return self.isReading;
 }
 
-- (BOOL)ensureAssetReaderIsReadingReturningError:(NSError **)outError  {
 
-    if (!self.isReading) {
-        [self.assetReader startReading];
-    }
-
-    if (!self.isReading) {
-        NSString *errMsg = [NSString stringWithFormat:@"[assetReader startReading] failed!  assetReader.status = %li.",
-                                                      self.assetReader.status];
-        [self fillError:outError withSelector:_cmd desciption:errMsg];
-    }
-    return self.isReading;
-}
-
+#pragma mark ---  Internal Properties  ---
 
 - (BOOL)isReading  {
+    OcLogVerbose(@"status=%@", self.statusName);
     return (self.status == AVAssetReaderStatusReading);
 }
 
@@ -356,7 +394,22 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
     return (self.isReading  ||  (!self.isReading  &&  !self.hasBeenStartedBefore));
 }
 
+- (BOOL)hasCachedFirstFrame  {
+    return (_cachedFirstSampleBuffer != NULL);
+}
 
+
+
+- (void)dealloc  {
+    if (self.hasCachedFirstFrame) {
+        CFRelease(_cachedFirstSampleBuffer);
+        _cachedFirstSampleBuffer = NULL;
+    }
+}
+
+
+
+#pragma mark ---  Orig Use, for Testing  ---
 
 - (BOOL)getData:(NSData **)dataPtr withStartFrameIndex:(int)startFrameIndex maxNumFrames:(int)maxNumFrames
         andActualNumFramesReturned:(int *)actualNumFramesReturnedPtr outError:(NSError **)outError  {
@@ -367,7 +420,7 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
     [self.assetReader startReading];
     if (self.assetReader.status != AVAssetReaderStatusReading)
     {
-        NSString *errMsg = [NSString stringWithFormat:@"[assetReader startReading] failed with status=%d.", self.assetReader.status];
+        NSString *errMsg = [NSString stringWithFormat:@"[assetReader startReading] failed with status=%@.", self.statusName];
         [self fillError:outError withSelector:_cmd desciption:errMsg];
     }
     else
@@ -403,8 +456,6 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
     *actualNumFramesReturnedPtr = numFramesAdded;
     return (numFramesAdded>0);
 }
-
-
 
 - (BOOL)ifSampleBufferIsCVImageBufferAddIt:(CMSampleBufferRef)sampleBuffer toData:(NSMutableData *)data outError:(NSError **)outError  {
 
@@ -457,8 +508,6 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
     return isSuccess;
 }
 
-
-
 // TEMPORARY - Overrides behavior in error utils category -- this ONLY LOGS
 //
 // ToDo: this should be deleted when integrated with rest of library
@@ -467,20 +516,6 @@ withDecompressionSettings:(NSDictionary *)decompressionSettings
     NSString *selectorName = NSStringFromSelector(selector);
 
     NSLog(@"HackFilleErrorLog: Error occurred in %@ - %@\n%@", selectorName, description, (*outError).debugDescription);
-}
-
-
-- (BOOL)hasCachedFirstFrame  {
-    return (_cachedFirstSampleBuffer != NULL);
-}
-
-
-
-- (void)dealloc  {
-    if (self.hasCachedFirstFrame) {
-        CFRelease(_cachedFirstSampleBuffer);
-        _cachedFirstSampleBuffer = NULL;
-    }
 }
 
 @end

@@ -1,0 +1,15 @@
+
+
+Domain
+
+	OcResultCodeList :  creating new/empty obj - what up
+
+	OcIntROJaggedArray : cluster, protocol, or wha?
+
+	OcResultValueList :  - (void)addNDimIntListData:(int *)aiRetVals withDimensions:(long)lNumDims andDimensionDepth:(long *)alDimLengths, + addNDimDouble...
+
+
+
+Tests
+
+	Add Controls.h to define Min & Max for random ints & doubles used in sample data generation.

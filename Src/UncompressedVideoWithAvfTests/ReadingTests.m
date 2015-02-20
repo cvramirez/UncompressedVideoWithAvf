@@ -20,7 +20,7 @@
 - (void)setUp {
     [super setUp];
     _movieUrl = [NSURL fileURLWithPath:@"/Users/cvramirez/Movies/SupaDupa.mov" isDirectory:NO];
-    _movieUrl = [NSURL fileURLWithPath:@"/Users/cvramirez/Movies/AnimatedColorGradient.mov" isDirectory:NO];
+    //_movieUrl = [NSURL fileURLWithPath:@"/Users/cvramirez/Movies/AnimatedColorGradient.mov" isDirectory:NO];
     _resultSet = [OcResultSet new];
 }
 

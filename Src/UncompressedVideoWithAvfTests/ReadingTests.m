@@ -19,8 +19,11 @@
 
 - (void)setUp {
     [super setUp];
-    _movieUrl = [NSURL fileURLWithPath:@"/Users/cvramirez/Movies/SupaDupa.mov" isDirectory:NO];
-    //_movieUrl = [NSURL fileURLWithPath:@"/Users/cvramirez/Movies/AnimatedColorGradient.mov" isDirectory:NO];
+	NSString *sampleMoviesDir = @"/Users/cvramirez/Dev/TestBed/UncompressedVideoWithAvf/Src/SampleMovies";
+	NSString *movieName = @"SupaDupa.mov";
+	//NSString *movieName = @"AnimatedColorGradient.mov";
+
+    _movieUrl = [NSURL fileURLWithPath:[sampleMoviesDir stringByAppendingPathComponent:movieName] isDirectory:NO];
     _resultSet = [OcResultSet new];
 }
 

@@ -21,7 +21,6 @@
 		727F83D5B2A11B5B7DE26DEB /* STAVAssetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F88959ED61946DAD0C550 /* STAVAssetHelper.m */; };
 		727F86791C8854D533E2D1E9 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727F8591CA176992E9B692B7 /* CocoaLumberjack.framework */; };
 		727F8A8A3983E391CBD51293 /* AVFoundationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F825FC5FEAE7FB005968A /* AVFoundationUtils.m */; };
-		727F8A8B7B94D6DC0A9F795B /* MovieWriterAVFRaw.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F8E59D1932B9446C23FAD /* MovieWriterAVFRaw.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +69,6 @@
 		4974342F1A945843008BC00B /* UncompressedVideoWithAvfTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UncompressedVideoWithAvfTests.m; sourceTree = "<group>"; };
 		727F821AC06DDDEB142C005B /* STAVAssetHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAVAssetHelper.h; sourceTree = "<group>"; };
 		727F825FC5FEAE7FB005968A /* AVFoundationUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVFoundationUtils.m; sourceTree = "<group>"; };
-		727F83D9E541EBDE94319F16 /* MovieWriterAVFRaw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieWriterAVFRaw.h; sourceTree = "<group>"; };
 		727F8504C92828E5417054DE /* OcLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OcLib.framework; path = "/Users/cvramirez/Dev/TestBed/UncompressedVideoWithAvf/Src/Frameworks-ToEmbed/OcLib.framework"; sourceTree = "<absolute>"; };
 		727F8591CA176992E9B692B7 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = "/Users/cvramirez/Dev/TestBed/UncompressedVideoWithAvf/Src/Frameworks-ToEmbed/CocoaLumberjack.framework"; sourceTree = "<absolute>"; };
 		727F88959ED61946DAD0C550 /* STAVAssetHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAVAssetHelper.m; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 		727F8AAFCF6C2BA3CBB46A0D /* AVFoundationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFoundationUtils.h; sourceTree = "<group>"; };
 		727F8B44C9FD9A61459B9434 /* STMovieDataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMovieDataReader.h; sourceTree = "<group>"; };
 		727F8BF7A6E25AC3F606BC62 /* ReadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadingTests.m; sourceTree = "<group>"; };
-		727F8E59D1932B9446C23FAD /* MovieWriterAVFRaw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieWriterAVFRaw.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,8 +129,6 @@
 				727F8A760B1BD723DFB73CFE /* STMovieDataReader.m */,
 				727F8B44C9FD9A61459B9434 /* STMovieDataReader.h */,
 				727F8CA40843AB9AF195118A /* Helpers */,
-				727F8E59D1932B9446C23FAD /* MovieWriterAVFRaw.m */,
-				727F83D9E541EBDE94319F16 /* MovieWriterAVFRaw.h */,
 			);
 			path = UncompressedVideoWithAvf;
 			sourceTree = "<group>";
@@ -291,7 +286,6 @@
 				727F8397EA6ED65DEB000A59 /* STMovieDataReader.m in Sources */,
 				727F83D5B2A11B5B7DE26DEB /* STAVAssetHelper.m in Sources */,
 				727F8A8A3983E391CBD51293 /* AVFoundationUtils.m in Sources */,
-				727F8A8B7B94D6DC0A9F795B /* MovieWriterAVFRaw.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   version = "1.3">
+   <BuildAction>
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForRunning = "YES"
+            buildForTesting = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "497434281A945843008BC00B"
+               BuildableName = "UncompressedVideoWithAvfTests.xctest"
+               BlueprintName = "UncompressedVideoWithAvfTests"
+               ReferencedContainer = "container:UncompressedVideoWithAvf.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug">
+      <Testables>
+         <TestableReference>
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "497434281A945843008BC00B"
+               BuildableName = "UncompressedVideoWithAvfTests.xctest"
+               BlueprintName = "UncompressedVideoWithAvfTests"
+               ReferencedContainer = "container:UncompressedVideoWithAvf.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ReadingTests/testPerformanceExample">
+               </Test>
+               <Test
+                  Identifier = "UncompressedVideoWithAvfTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      useCustomWorkingDirectory = "NO">
+   </LaunchAction>
+</Scheme>

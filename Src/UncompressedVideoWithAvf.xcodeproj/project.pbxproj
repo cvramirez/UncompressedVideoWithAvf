@@ -1,0 +1,500 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		496A71B91A975AD4004B62F8 /* OcLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727F8504C92828E5417054DE /* OcLib.framework */; };
+		496A71BC1A975D8B004B62F8 /* OcLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 727F8504C92828E5417054DE /* OcLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		496A71BD1A975DDA004B62F8 /* CocoaLumberjack.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 727F8591CA176992E9B692B7 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4974341D1A945843008BC00B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4974341C1A945843008BC00B /* AppDelegate.m */; };
+		4974341F1A945843008BC00B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4974341E1A945843008BC00B /* main.m */; };
+		497434211A945843008BC00B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 497434201A945843008BC00B /* Images.xcassets */; };
+		497434241A945843008BC00B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497434221A945843008BC00B /* MainMenu.xib */; };
+		497434301A945843008BC00B /* UncompressedVideoWithAvfTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4974342F1A945843008BC00B /* UncompressedVideoWithAvfTests.m */; };
+		727F805488FCB2D3986DB646 /* ReadingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F8BF7A6E25AC3F606BC62 /* ReadingTests.m */; };
+		727F82B5ECE4A231F1516ABF /* OcLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727F8504C92828E5417054DE /* OcLib.framework */; };
+		727F8397EA6ED65DEB000A59 /* STMovieDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F8A760B1BD723DFB73CFE /* STMovieDataReader.m */; };
+		727F83D5B2A11B5B7DE26DEB /* STAVAssetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F88959ED61946DAD0C550 /* STAVAssetHelper.m */; };
+		727F86791C8854D533E2D1E9 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727F8591CA176992E9B692B7 /* CocoaLumberjack.framework */; };
+		727F8A8A3983E391CBD51293 /* AVFoundationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F825FC5FEAE7FB005968A /* AVFoundationUtils.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4974342A1A945843008BC00B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4974340E1A945842008BC00B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 497434151A945843008BC00B;
+			remoteInfo = UncompressedVideoWithAvf;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		496A71B71A975A16004B62F8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		496A71BB1A975D7D004B62F8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				496A71BD1A975DDA004B62F8 /* CocoaLumberjack.framework in CopyFiles */,
+				496A71BC1A975D8B004B62F8 /* OcLib.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		497434161A945843008BC00B /* UncompressedVideoWithAvf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UncompressedVideoWithAvf.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4974341A1A945843008BC00B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4974341B1A945843008BC00B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4974341C1A945843008BC00B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4974341E1A945843008BC00B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		497434201A945843008BC00B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		497434231A945843008BC00B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		497434291A945843008BC00B /* UncompressedVideoWithAvfTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UncompressedVideoWithAvfTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4974342E1A945843008BC00B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4974342F1A945843008BC00B /* UncompressedVideoWithAvfTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UncompressedVideoWithAvfTests.m; sourceTree = "<group>"; };
+		727F821AC06DDDEB142C005B /* STAVAssetHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAVAssetHelper.h; sourceTree = "<group>"; };
+		727F825FC5FEAE7FB005968A /* AVFoundationUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVFoundationUtils.m; sourceTree = "<group>"; };
+		727F8504C92828E5417054DE /* OcLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OcLib.framework; path = "/Users/cvramirez/Dev/TestBed/UncompressedVideoWithAvf/Src/Frameworks-ToEmbed/OcLib.framework"; sourceTree = "<absolute>"; };
+		727F8591CA176992E9B692B7 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = "/Users/cvramirez/Dev/TestBed/UncompressedVideoWithAvf/Src/Frameworks-ToEmbed/CocoaLumberjack.framework"; sourceTree = "<absolute>"; };
+		727F88959ED61946DAD0C550 /* STAVAssetHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAVAssetHelper.m; sourceTree = "<group>"; };
+		727F8A760B1BD723DFB73CFE /* STMovieDataReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMovieDataReader.m; sourceTree = "<group>"; };
+		727F8AAFCF6C2BA3CBB46A0D /* AVFoundationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFoundationUtils.h; sourceTree = "<group>"; };
+		727F8B44C9FD9A61459B9434 /* STMovieDataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMovieDataReader.h; sourceTree = "<group>"; };
+		727F8BF7A6E25AC3F606BC62 /* ReadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadingTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		497434131A945843008BC00B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				727F82B5ECE4A231F1516ABF /* OcLib.framework in Frameworks */,
+				727F86791C8854D533E2D1E9 /* CocoaLumberjack.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		497434261A945843008BC00B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				496A71B91A975AD4004B62F8 /* OcLib.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4974340D1A945842008BC00B = {
+			isa = PBXGroup;
+			children = (
+				497434181A945843008BC00B /* UncompressedVideoWithAvf */,
+				4974342C1A945843008BC00B /* UncompressedVideoWithAvfTests */,
+				497434171A945843008BC00B /* Products */,
+				727F82BDE15A08CAE3D933A3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		497434171A945843008BC00B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				497434161A945843008BC00B /* UncompressedVideoWithAvf.app */,
+				497434291A945843008BC00B /* UncompressedVideoWithAvfTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		497434181A945843008BC00B /* UncompressedVideoWithAvf */ = {
+			isa = PBXGroup;
+			children = (
+				4974341B1A945843008BC00B /* AppDelegate.h */,
+				4974341C1A945843008BC00B /* AppDelegate.m */,
+				497434201A945843008BC00B /* Images.xcassets */,
+				497434221A945843008BC00B /* MainMenu.xib */,
+				497434191A945843008BC00B /* Supporting Files */,
+				727F8A760B1BD723DFB73CFE /* STMovieDataReader.m */,
+				727F8B44C9FD9A61459B9434 /* STMovieDataReader.h */,
+				727F8CA40843AB9AF195118A /* Helpers */,
+			);
+			path = UncompressedVideoWithAvf;
+			sourceTree = "<group>";
+		};
+		497434191A945843008BC00B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4974341A1A945843008BC00B /* Info.plist */,
+				4974341E1A945843008BC00B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4974342C1A945843008BC00B /* UncompressedVideoWithAvfTests */ = {
+			isa = PBXGroup;
+			children = (
+				4974342F1A945843008BC00B /* UncompressedVideoWithAvfTests.m */,
+				4974342D1A945843008BC00B /* Supporting Files */,
+				727F8BF7A6E25AC3F606BC62 /* ReadingTests.m */,
+			);
+			path = UncompressedVideoWithAvfTests;
+			sourceTree = "<group>";
+		};
+		4974342D1A945843008BC00B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4974342E1A945843008BC00B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		727F82BDE15A08CAE3D933A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				727F8504C92828E5417054DE /* OcLib.framework */,
+				727F8591CA176992E9B692B7 /* CocoaLumberjack.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		727F8CA40843AB9AF195118A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				727F821AC06DDDEB142C005B /* STAVAssetHelper.h */,
+				727F88959ED61946DAD0C550 /* STAVAssetHelper.m */,
+				727F8AAFCF6C2BA3CBB46A0D /* AVFoundationUtils.h */,
+				727F825FC5FEAE7FB005968A /* AVFoundationUtils.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		497434151A945843008BC00B /* UncompressedVideoWithAvf */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 497434331A945843008BC00B /* Build configuration list for PBXNativeTarget "UncompressedVideoWithAvf" */;
+			buildPhases = (
+				497434121A945843008BC00B /* Sources */,
+				497434131A945843008BC00B /* Frameworks */,
+				497434141A945843008BC00B /* Resources */,
+				496A71BB1A975D7D004B62F8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UncompressedVideoWithAvf;
+			productName = UncompressedVideoWithAvf;
+			productReference = 497434161A945843008BC00B /* UncompressedVideoWithAvf.app */;
+			productType = "com.apple.product-type.application";
+		};
+		497434281A945843008BC00B /* UncompressedVideoWithAvfTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 497434361A945843008BC00B /* Build configuration list for PBXNativeTarget "UncompressedVideoWithAvfTests" */;
+			buildPhases = (
+				497434251A945843008BC00B /* Sources */,
+				497434261A945843008BC00B /* Frameworks */,
+				497434271A945843008BC00B /* Resources */,
+				496A71B71A975A16004B62F8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4974342B1A945843008BC00B /* PBXTargetDependency */,
+			);
+			name = UncompressedVideoWithAvfTests;
+			productName = UncompressedVideoWithAvfTests;
+			productReference = 497434291A945843008BC00B /* UncompressedVideoWithAvfTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4974340E1A945842008BC00B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Watson Lab";
+				TargetAttributes = {
+					497434151A945843008BC00B = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					497434281A945843008BC00B = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 497434151A945843008BC00B;
+					};
+				};
+			};
+			buildConfigurationList = 497434111A945842008BC00B /* Build configuration list for PBXProject "UncompressedVideoWithAvf" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4974340D1A945842008BC00B;
+			productRefGroup = 497434171A945843008BC00B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				497434151A945843008BC00B /* UncompressedVideoWithAvf */,
+				497434281A945843008BC00B /* UncompressedVideoWithAvfTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		497434141A945843008BC00B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				497434211A945843008BC00B /* Images.xcassets in Resources */,
+				497434241A945843008BC00B /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		497434271A945843008BC00B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		497434121A945843008BC00B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4974341F1A945843008BC00B /* main.m in Sources */,
+				4974341D1A945843008BC00B /* AppDelegate.m in Sources */,
+				727F8397EA6ED65DEB000A59 /* STMovieDataReader.m in Sources */,
+				727F83D5B2A11B5B7DE26DEB /* STAVAssetHelper.m in Sources */,
+				727F8A8A3983E391CBD51293 /* AVFoundationUtils.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		497434251A945843008BC00B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				497434301A945843008BC00B /* UncompressedVideoWithAvfTests.m in Sources */,
+				727F805488FCB2D3986DB646 /* ReadingTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4974342B1A945843008BC00B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 497434151A945843008BC00B /* UncompressedVideoWithAvf */;
+			targetProxy = 4974342A1A945843008BC00B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		497434221A945843008BC00B /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				497434231A945843008BC00B /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		497434311A945843008BC00B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		497434321A945843008BC00B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		497434341A945843008BC00B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/Frameworks-ToEmbed\"/**",
+					"\"${PROJECT_DIR}/Frameworks-ToEmbed\"/**",
+				);
+				INFOPLIST_FILE = UncompressedVideoWithAvf/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		497434351A945843008BC00B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/Frameworks-ToEmbed\"/**",
+					"\"${PROJECT_DIR}/Frameworks-ToEmbed\"/**",
+				);
+				INFOPLIST_FILE = UncompressedVideoWithAvf/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		497434371A945843008BC00B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks-ToEmbed",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = UncompressedVideoWithAvfTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UncompressedVideoWithAvf.app/Contents/MacOS/UncompressedVideoWithAvf";
+			};
+			name = Debug;
+		};
+		497434381A945843008BC00B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks-ToEmbed",
+				);
+				INFOPLIST_FILE = UncompressedVideoWithAvfTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UncompressedVideoWithAvf.app/Contents/MacOS/UncompressedVideoWithAvf";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		497434111A945842008BC00B /* Build configuration list for PBXProject "UncompressedVideoWithAvf" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				497434311A945843008BC00B /* Debug */,
+				497434321A945843008BC00B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		497434331A945843008BC00B /* Build configuration list for PBXNativeTarget "UncompressedVideoWithAvf" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				497434341A945843008BC00B /* Debug */,
+				497434351A945843008BC00B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		497434361A945843008BC00B /* Build configuration list for PBXNativeTarget "UncompressedVideoWithAvfTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				497434371A945843008BC00B /* Debug */,
+				497434381A945843008BC00B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4974340E1A945842008BC00B /* Project object */;
+}
